@@ -13,7 +13,6 @@ const App = props => {
 
   return (
     <div className="App">
-      <h2>Trade Data By Basic View</h2>
       <ChartWrapper data={incomingData} settings={lineSettings} />
     </div>
   );

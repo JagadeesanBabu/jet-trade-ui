@@ -39,27 +39,27 @@ export const reformatData = data => formatDateInData(createFlatArray(data));
 export const dataToLineChart = (inputData, settings) => {
   const { yAxis = '' } = settings;
   let { xAxis = '' } = settings;
-  var data = [
-    {
-      "id": "BANKNIFTY",
-      "data": [
-      
-      ]
-    }
-  ];
+  const [lineDataFirstElement] =
+    [
+      {
+        "id": "BANKNIFTY",
+        "data": [
+        ]
+      }
+    ]
+
+  if (typeof(inputData.data)!=="undefined") {
   var i;
-  
-  for (i = 0; i < 25; i++) {
-    if(typeof(inputData.data)!=="undefined")
-    {
-      data[0].data.push(
-          {
-            "x": inputData.data[i].tradeDate,
-            "y": inputData.data[i].closedPrice
-          }
-      
-      )
-        }
-  };
-  return data;
+  inputData.data.map(data => {
+    lineDataFirstElement.data.push(
+      {
+        "x": data.tradeDate,
+        "y": data.closedPrice
+      }
+
+    )
+  }
+  )
+}
+  return lineDataFirstElement;
 };
