@@ -1,0 +1,10 @@
+.chart-wrapper {
+  height: 450px;
+  width: 2000px;
+  position: absolute;
+  text-align: center;
+  font-size: 1.3rem !important;
+  display: block;
+  border-style: solid;
+  
+}
