@@ -6,7 +6,7 @@ import Chartwrapper from './components/Chartwrapper/Chartwrapper';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./components/layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DateRangeSelector from './components/Datepicker/date-picker';
+import DateRangeSelector from './components/Datepicker/DateRangeSelector';
 import ScrollableTabsButtonAuto from './components/tabs/ScrollableTabsButtonAuto';
 
 
@@ -16,7 +16,7 @@ function App() {
     <Router>
     <div className="App">
     <Header />
-    <Route component={DateRangeSelector} />
+    
     <Route component={ScrollableTabsButtonAuto} />
     <Route component={Chartwrapper} />
     </div>

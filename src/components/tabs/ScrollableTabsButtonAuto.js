@@ -8,6 +8,11 @@ import Box from '@material-ui/core/Box';
 import { connect } from "react-redux";
 import React, { Component } from 'react'
 import { getTradeData } from "../../actions/tradeDataActions";
+import DateRangeSelector from '../Datepicker/DateRangeSelector';
+import moment from 'moment'
+import { startDateEndDate } from '../helpers/dateHelpers'
+
+
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -57,42 +62,54 @@ class ScrollableTabsButtonAuto extends Component {
     super();
     this.state = {
       value: 0,
+      isDateRangeVisible: false,
       errors: {}
 
     }
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = (event, value ) => {
-    this.setState({value});
+  handleChange = (event, value) => {
+    this.setState({
+      value: value,
+      isDateRangeVisible: false
+    });
     console.log(`value is ${value}`);
     this.getTradeDataByInputDate(value);
   }
+
+  handleDateRangeChange = (event, value, isDateRangeVisible) => {
+    this.setState({
+      value: value,
+      isDateRangeVisible: isDateRangeVisible
+    });
+  }
+
   getTradeDataByInputDate = (index) => {
     switch (index) {
-      case 0:
-        this.props.getTradeData(5);
-        break;
       case 1:
-        this.props.getTradeData(7);
+        this.props.getTradeData(startDateEndDate(5));
         break;
       case 2:
-        this.props.getTradeData(10);
-        break; 
+        this.props.getTradeData(startDateEndDate(7));
+        break;
       case 3:
-        this.props.getTradeData(30);
+        this.props.getTradeData(startDateEndDate(10));
         break;
       case 4:
-        this.props.getTradeData(90);
+        this.props.getTradeData(startDateEndDate(30));
         break;
       case 5:
-        this.props.getTradeData(180);
+        this.props.getTradeData(startDateEndDate(90));
         break;
       case 6:
-        this.props.getTradeData(365);
+        this.props.getTradeData(startDateEndDate(180));
+        break;
+      case 7:
+        this.props.getTradeData(startDateEndDate(365));
         break;
       default:
-        this.props.getTradeData(5);
+        this.props.getTradeData(startDateEndDate(5));
     }
 
   }
@@ -108,24 +125,26 @@ class ScrollableTabsButtonAuto extends Component {
             scrollButtons="auto"
             aria-label="scrollable auto tabs example"
           >
-            <Tab label="5D" onClick={(event) => {this.handleChange(event, 0)} } {...a11yProps(0)} />
-            <Tab label="1W" onClick={(event) => {this.handleChange(event, 1)} } {...a11yProps(1)} />
-            <Tab label="10D" onClick={(event) => {this.handleChange(event, 2)} } {...a11yProps(2)} />
-            <Tab label="1M" onClick={(event) => {this.handleChange(event, 3)} } {...a11yProps(3)} />
-            <Tab label="3M" onClick={(event) => {this.handleChange(event, 4)} } {...a11yProps(4)} />
-            <Tab label="6M" onClick={(event) => {this.handleChange(event, 5)} } {...a11yProps(5)} />
-            <Tab label="1Y" onClick={(event) => {this.handleChange(event, 6)} } {...a11yProps(6)} />
+            <Tab label="select date range" onClick={(event) => { this.handleDateRangeChange(event, 0, true) }} {...a11yProps(0)} />
+            <Tab label="5D" onClick={(event) => { this.handleChange(event, 1) }} {...a11yProps(1)} />
+            <Tab label="1W" onClick={(event) => { this.handleChange(event, 2) }} {...a11yProps(2)} />
+            <Tab label="10D" onClick={(event) => { this.handleChange(event, 3) }} {...a11yProps(3)} />
+            <Tab label="1M" onClick={(event) => { this.handleChange(event, 4) }} {...a11yProps(4)} />
+            <Tab label="3M" onClick={(event) => { this.handleChange(event, 5) }} {...a11yProps(5)} />
+            <Tab label="6M" onClick={(event) => { this.handleChange(event, 6) }} {...a11yProps(6)} />
+            <Tab label="1Y" onClick={(event) => { this.handleChange(event, 7) }} {...a11yProps(7)} />
           </Tabs>
         </AppBar>
 
-        <TabPanel value={this.state.value} index={0}/>
-        <TabPanel value={this.state.value} index={1}/>
-        <TabPanel value={this.state.value} index={2}/>
-        <TabPanel value={this.state.value} index={3}/>
-        <TabPanel value={this.state.value} index={4}/>
-        <TabPanel value={this.state.value} index={5}/>
-        <TabPanel value={this.state.value} index={6}/>
-
+        <TabPanel value={this.state.value} index={0} />
+        <TabPanel value={this.state.value} index={1} />
+        <TabPanel value={this.state.value} index={2} />
+        <TabPanel value={this.state.value} index={3} />
+        <TabPanel value={this.state.value} index={4} />
+        <TabPanel value={this.state.value} index={5} />
+        <TabPanel value={this.state.value} index={6} />
+        <TabPanel value={this.state.value} index={7} />
+        {this.state.isDateRangeVisible ? <DateRangeSelector /> : null}
       </div>
     );
   }

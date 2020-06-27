@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { getTradeData } from "../../actions/tradeDataActions";
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
- 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import 'react-dates/initialize';
@@ -16,20 +15,23 @@ class DateRangeSelector extends Component {
       startDate: "",
       endDate: "",
       focusedInput: null,
-      errors:{}
+      errors: {}
 
     }
-   this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   handleDateChange = ({ startDate, endDate }) => {
     const moment = extendMoment(Moment);
     this.setState({ startDate, endDate });
     const start = moment(startDate, 'YYYY-MM-DD');
-    const end   = moment(endDate, 'YYYY-MM-DD');
-    const range = moment.range(start, end);
-    console.log(`range values is ${range.diff('days')}`)
-    this.props.getTradeData(range.diff('days'));
+    const end = moment(endDate, 'YYYY-MM-DD');
+    
+    console.log(`range values is ${start} ${end}`)
+    this.props.getTradeData({
+      startDate:start.format("YYYY-MM-DD"),
+      endDate:end.format("YYYY-MM-DD"),
+    });
   }
 
   handleFocusChange = focusedInput => this.setState({ focusedInput });
@@ -46,9 +48,11 @@ class DateRangeSelector extends Component {
         onFocusChange={this.handleFocusChange}
         startDate={this.state.startDate}
         startDateId="startDate"
-        maxWidth={767} 
+        maxWidth={767}
         minWidth={768}
       />
+    
+
     );
   }
 }
@@ -65,5 +69,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getTradeData}
+  { getTradeData }
 )(DateRangeSelector);

@@ -2,9 +2,12 @@ import axios from "axios";
 import { GET_INCOMING_DATA_SUCCESS, GET_INCOMING_DATA_FAILURE } from "./types";
 import { defaultUrl } from './config';
 
-export const getTradeData = (size=25) => async dispatch => {
+export const getTradeData = (params) => async dispatch => {
   try {
-    const res = await axios.get(`${defaultUrl}?size=${size}`);
+    let defaultSize=25;
+    const res = params ?
+    await axios.get(`${defaultUrl}?fromDate=${params.startDate}&endDate=${params.endDate}`):
+    await axios.get(`${defaultUrl}?size=${defaultSize}`);
     dispatch({
         type: GET_INCOMING_DATA_SUCCESS,
         payload: res.data

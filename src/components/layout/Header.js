@@ -3,11 +3,14 @@ import React, { Component } from "react";
 class Header extends Component {
   render() {
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4 text-center">
-        <div class="container-fluid-nav text-center">
-          <h1 className="navbar-brand text-center " href="Dashboard.html">
-            JET Trade
-          </h1>
+      <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
+        <div className="container">
+          
+            <h2 className="navbar-nav mx-auto text-center">
+             TradeData View
+            </h2>
+          
+          
         </div>
       </nav>
     );
