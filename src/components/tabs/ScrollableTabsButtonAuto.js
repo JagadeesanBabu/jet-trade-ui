@@ -9,8 +9,8 @@ import { connect } from "react-redux";
 import React, { Component } from 'react'
 import { getTradeData } from "../../actions/tradeDataActions";
 import DateRangeSelector from '../Datepicker/DateRangeSelector';
-import moment from 'moment'
 import { startDateEndDate } from '../helpers/dateHelpers'
+import MultiSelectSearch from '../searchComboBox/MultiSelectSearch';
 
 
 
@@ -63,6 +63,7 @@ class ScrollableTabsButtonAuto extends Component {
     this.state = {
       value: 0,
       isDateRangeVisible: false,
+      isIndicatorVisisble: false,
       errors: {}
 
     }
@@ -85,27 +86,34 @@ class ScrollableTabsButtonAuto extends Component {
     });
   }
 
+  handleIndicatorChange = (event, value, isIndicatorVisisble) => {
+    this.setState({
+      value: value,
+      isIndicatorVisisble: isIndicatorVisisble
+    });
+  }
+
   getTradeDataByInputDate = (index) => {
     switch (index) {
-      case 1:
+      case 2:
         this.props.getTradeData(startDateEndDate(5));
         break;
-      case 2:
+      case 3:
         this.props.getTradeData(startDateEndDate(7));
         break;
-      case 3:
+      case 4:
         this.props.getTradeData(startDateEndDate(10));
         break;
-      case 4:
+      case 5:
         this.props.getTradeData(startDateEndDate(30));
         break;
-      case 5:
+      case 6:
         this.props.getTradeData(startDateEndDate(90));
         break;
-      case 6:
+      case 7:
         this.props.getTradeData(startDateEndDate(180));
         break;
-      case 7:
+      case 8:
         this.props.getTradeData(startDateEndDate(365));
         break;
       default:
@@ -125,14 +133,15 @@ class ScrollableTabsButtonAuto extends Component {
             scrollButtons="auto"
             aria-label="scrollable auto tabs example"
           >
-            <Tab label="select date range" onClick={(event) => { this.handleDateRangeChange(event, 0, true) }} {...a11yProps(0)} />
-            <Tab label="5D" onClick={(event) => { this.handleChange(event, 1) }} {...a11yProps(1)} />
-            <Tab label="1W" onClick={(event) => { this.handleChange(event, 2) }} {...a11yProps(2)} />
-            <Tab label="10D" onClick={(event) => { this.handleChange(event, 3) }} {...a11yProps(3)} />
-            <Tab label="1M" onClick={(event) => { this.handleChange(event, 4) }} {...a11yProps(4)} />
-            <Tab label="3M" onClick={(event) => { this.handleChange(event, 5) }} {...a11yProps(5)} />
-            <Tab label="6M" onClick={(event) => { this.handleChange(event, 6) }} {...a11yProps(6)} />
-            <Tab label="1Y" onClick={(event) => { this.handleChange(event, 7) }} {...a11yProps(7)} />
+            <Tab label="select date range" onClick={(event) => { this.handleDateRangeChange(event, 0, true)}} {...a11yProps(0)} />
+            <Tab label="indicators" onClick={(event) => { this.handleIndicatorChange(event, 1, true) }} {...a11yProps(1)} />
+            <Tab label="5D" onClick={(event) => { this.handleChange(event, 2) }} {...a11yProps(2)} />
+            <Tab label="1W" onClick={(event) => { this.handleChange(event, 3) }} {...a11yProps(3)} />
+            <Tab label="10D" onClick={(event) => { this.handleChange(event, 4) }} {...a11yProps(4)} />
+            <Tab label="1M" onClick={(event) => { this.handleChange(event, 5) }} {...a11yProps(5)} />
+            <Tab label="3M" onClick={(event) => { this.handleChange(event, 6) }} {...a11yProps(6)} />
+            <Tab label="6M" onClick={(event) => { this.handleChange(event, 7) }} {...a11yProps(7)} />
+            <Tab label="1Y" onClick={(event) => { this.handleChange(event, 8) }} {...a11yProps(8)} />
           </Tabs>
         </AppBar>
 
@@ -144,7 +153,9 @@ class ScrollableTabsButtonAuto extends Component {
         <TabPanel value={this.state.value} index={5} />
         <TabPanel value={this.state.value} index={6} />
         <TabPanel value={this.state.value} index={7} />
+        <TabPanel value={this.state.value} index={8} />
         {this.state.isDateRangeVisible ? <DateRangeSelector /> : null}
+        {this.state.isIndicatorVisisble ? <MultiSelectSearch /> : null}
       </div>
     );
   }

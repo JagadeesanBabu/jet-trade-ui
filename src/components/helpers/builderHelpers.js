@@ -6,20 +6,26 @@ import * as _ from 'lodash';
  * @returns {Object} data-array and settings for building
  */
 export const dataToLineChart = (inputData) => {
-  
-  const [lineDataFirstElement] =
+
+  const lineDataFirstElement =
     [
       {
-        "id": "BANKNIFTY",
+        "id": "BANKNIFTY_BASIC",
+        "color": "hsl(255, 70%, 50%)",
+        "data": [
+        ]
+      },
+      {
+        "id": "BANKNIFTY_RSI",
+        "color": "hsl(230, 70%, 50%)",
         "data": [
         ]
       }
     ]
 
-  if (typeof(inputData.tradeData)!=="undefined") {
 
   inputData.tradeData.map(data => {
-    lineDataFirstElement.data.push(
+    lineDataFirstElement[0].data.push(
       {
         "x": data.tradeDate,
         "y": data.closedPrice
@@ -28,6 +34,17 @@ export const dataToLineChart = (inputData) => {
     )
   }
   )
-}
+  if (inputData.tradeDataRSI) {
+    inputData.tradeDataRSI.map(data => {
+      lineDataFirstElement[1].data.push(
+        {
+          "x": data.tradeDate,
+          "y": data.relativeIndex
+        }
+
+      )
+    })
+  }
   return lineDataFirstElement;
-};
+}
+

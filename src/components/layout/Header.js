@@ -5,7 +5,6 @@ class Header extends Component {
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
         <div className="container">
-          
             <h2 className="navbar-nav mx-auto text-center">
              TradeData View
             </h2>

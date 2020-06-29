@@ -2,8 +2,6 @@ import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 import React, { Component } from 'react';
 import { getTradeData } from "../../actions/tradeDataActions";
-import Moment from 'moment';
-import { extendMoment } from 'moment-range';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import 'react-dates/initialize';
@@ -22,16 +20,16 @@ class DateRangeSelector extends Component {
   }
 
   handleDateChange = ({ startDate, endDate }) => {
-    const moment = extendMoment(Moment);
-    this.setState({ startDate, endDate });
-    const start = moment(startDate, 'YYYY-MM-DD');
-    const end = moment(endDate, 'YYYY-MM-DD');
     
-    console.log(`range values is ${start} ${end}`)
+    this.setState({ 
+      startDate:startDate, 
+      endDate:endDate });
+
     this.props.getTradeData({
-      startDate:start.format("YYYY-MM-DD"),
-      endDate:end.format("YYYY-MM-DD"),
+      startDate:startDate,
+      endDate:endDate
     });
+   
   }
 
   handleFocusChange = focusedInput => this.setState({ focusedInput });
@@ -62,12 +60,18 @@ DateRangeSelector.propTypes = {
   errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => (
+  
+  {
   tradeData: state.tradeData,
-  errors: state.errors
+  errors: state.errors,
+  dateObjects: {
+    startDate:state.startDate,
+    endDate:state.endDate
+  }
 });
 
 export default connect(
   mapStateToProps,
-  { getTradeData }
+  { getTradeData}
 )(DateRangeSelector);

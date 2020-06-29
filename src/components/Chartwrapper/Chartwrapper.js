@@ -6,8 +6,6 @@ import { getTradeData } from "../../actions/tradeDataActions";
 import PropTypes from "prop-types";
 import { buildChart } from "../builders/builderChart";
 
-
-
 class Chartwrapper extends Component {
     constructor() {
         super();
@@ -18,17 +16,17 @@ class Chartwrapper extends Component {
 
     componentDidMount() {
         this.props.getTradeData();
-        if (this.props.errors) {
-            this.setState({ errors: this.props.errors });
-        }
+        // if (this.props.errors) {
+        //     this.setState({ errors: this.props.errors });
+        // }
     }
 
     render() {
         const data = this.props.tradeData;
         return (
-                <div className="chart-wrapper">
-                    {buildChart(data)}
-                </div>
+            <div className="chart-wrapper">
+                {buildChart(data)}
+            </div>
         )
     }
 
