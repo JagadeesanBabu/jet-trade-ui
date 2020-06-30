@@ -1,7 +1,8 @@
 import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 import React, { Component } from 'react';
-import { getTradeData } from "../../actions/tradeDataActions";
+//import { getTradeData } from "../../actions/tradeDataActions";
+import { setDateRange } from "../../actions/dateRangeActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import 'react-dates/initialize';
@@ -12,23 +13,24 @@ class DateRangeSelector extends Component {
     this.state = {
       startDate: "",
       endDate: "",
-      focusedInput: null,
-      errors: {}
+      focusedInput: null
 
     }
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   handleDateChange = ({ startDate, endDate }) => {
-    
+    //if (startDate && endDate) {
     this.setState({ 
       startDate:startDate, 
       endDate:endDate });
-
-    this.props.getTradeData({
-      startDate:startDate,
-      endDate:endDate
-    });
+    
+    // this.props.getTradeData({
+    //   startDate:startDate,
+    //   endDate:endDate
+    // });
+     this.props.setDateRange(startDate,endDate);
+  //}
    
   }
 
@@ -56,22 +58,17 @@ class DateRangeSelector extends Component {
 }
 
 DateRangeSelector.propTypes = {
-  getTradeData: PropTypes.func.isRequired,
+  setDateRange: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => (
-  
   {
-  tradeData: state.tradeData,
-  errors: state.errors,
-  dateObjects: {
-    startDate:state.startDate,
-    endDate:state.endDate
-  }
+  dateRanges: state.dateRanges,
+  errors: state.errors
 });
 
 export default connect(
   mapStateToProps,
-  { getTradeData}
+  { setDateRange}
 )(DateRangeSelector);

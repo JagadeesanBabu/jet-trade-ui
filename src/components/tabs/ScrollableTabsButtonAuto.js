@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import { connect } from "react-redux";
 import React, { Component } from 'react'
 import { getTradeData } from "../../actions/tradeDataActions";
+import { getTradeDataByRSI } from "../../actions/tradeDataActionsRsi";
 import DateRangeSelector from '../Datepicker/DateRangeSelector';
 import { startDateEndDate } from '../helpers/dateHelpers'
 import MultiSelectSearch from '../searchComboBox/MultiSelectSearch';
@@ -97,27 +98,35 @@ class ScrollableTabsButtonAuto extends Component {
     switch (index) {
       case 2:
         this.props.getTradeData(startDateEndDate(5));
+        this.props.getTradeDataByRSI(startDateEndDate(5));
         break;
       case 3:
         this.props.getTradeData(startDateEndDate(7));
+        this.props.getTradeDataByRSI(startDateEndDate(7));
         break;
       case 4:
         this.props.getTradeData(startDateEndDate(10));
+       this.props.getTradeDataByRSI(startDateEndDate(10));
         break;
       case 5:
         this.props.getTradeData(startDateEndDate(30));
+        this.props.getTradeDataByRSI(startDateEndDate(30));
         break;
       case 6:
         this.props.getTradeData(startDateEndDate(90));
+        this.props.getTradeDataByRSI(startDateEndDate(90));
         break;
       case 7:
         this.props.getTradeData(startDateEndDate(180));
+        this.props.getTradeDataByRSI(startDateEndDate(180));
         break;
       case 8:
         this.props.getTradeData(startDateEndDate(365));
+        this.props.getTradeDataByRSI(startDateEndDate(365));
         break;
       default:
         this.props.getTradeData(startDateEndDate(5));
+        this.props.getTradeDataByRSI(startDateEndDate(5));
     }
 
   }
@@ -173,7 +182,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getTradeData }
+  { getTradeData, getTradeDataByRSI }
 )(ScrollableTabsButtonAuto);
 
 

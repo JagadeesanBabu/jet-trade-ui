@@ -7,7 +7,7 @@ import * as _ from 'lodash';
  */
 export const dataToLineChart = (inputData) => {
 
-  const lineDataFirstElement =
+  const lineDataElements =
     [
       {
         "id": "BANKNIFTY_BASIC",
@@ -25,7 +25,7 @@ export const dataToLineChart = (inputData) => {
 
 
   inputData.tradeData.map(data => {
-    lineDataFirstElement[0].data.push(
+    lineDataElements[0].data.push(
       {
         "x": data.tradeDate,
         "y": data.closedPrice
@@ -36,7 +36,7 @@ export const dataToLineChart = (inputData) => {
   )
   if (inputData.tradeDataRSI) {
     inputData.tradeDataRSI.map(data => {
-      lineDataFirstElement[1].data.push(
+      lineDataElements[1].data.push(
         {
           "x": data.tradeDate,
           "y": data.relativeIndex
@@ -45,6 +45,6 @@ export const dataToLineChart = (inputData) => {
       )
     })
   }
-  return lineDataFirstElement;
+  return lineDataElements;
 }
 

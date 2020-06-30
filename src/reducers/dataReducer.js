@@ -1,8 +1,10 @@
-import { GET_INCOMING_DATA_SUCCESS, GET_INCOMING_DATA_SUCCESS_RSI } from "../actions/types";
+import { GET_INCOMING_DATA_SUCCESS, GET_INCOMING_DATA_SUCCESS_RSI, SET_DATE_RANGE_SUCCESS } from "../actions/types";
 
 const initialState = {
   tradeData: [],
-  tradeDataRSI:[]
+  tradeDataRSI:[],
+  dateRanges: {},
+  dateObjects: {}
 };
 
 export default function(state = initialState, action) {
@@ -10,12 +12,21 @@ export default function(state = initialState, action) {
     case GET_INCOMING_DATA_SUCCESS:
       return {
         ...state,
-        tradeData: action.payload
+        tradeData: action.payload,
+        dateObjects: action.dateObjects
+
       };
+      case SET_DATE_RANGE_SUCCESS:
+        return {
+          ...state,
+          dateRanges: action.payload
+  
+        };
       case GET_INCOMING_DATA_SUCCESS_RSI:
         return {
           ...state,
-          tradeDataRSI: action.payload
+          tradeDataRSI: action.payload,
+          dateObjects: action.dateObjects
         };      
     default:
       return state;

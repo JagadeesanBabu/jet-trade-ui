@@ -9,14 +9,18 @@ export const getTradeData = (params) => async dispatch => {
   try {
     let defaultSize=25;
     const moment = extendMoment(Moment);
-    const start = params ? moment(params.startDate, 'YYYY-MM-DD').format("YYYY-MM-DD") : null;
-    const end = params ? moment(params.endDate, 'YYYY-MM-DD').format("YYYY-MM-DD") : null;
-    const res = params ?
+    const start = params && params.startDate ? moment(params.startDate, 'YYYY-MM-DD').format("YYYY-MM-DD") : null;
+    const end = params && params.endDate ? moment(params.endDate, 'YYYY-MM-DD').format("YYYY-MM-DD") : null;
+    const res = start && end ?
     await axios.get(`${defaultUrl}byBasic?fromDate=${start}&endDate=${end}`):
     await axios.get(`${defaultUrl}byBasic?size=${defaultSize}`);
     dispatch({
         type: GET_INCOMING_DATA_SUCCESS,
-        payload: res.data
+        payload: res.data,
+        dateObjects: {
+          startDate: start,
+          endDate: end
+        }
       });
   } catch (err) {
     dispatch({

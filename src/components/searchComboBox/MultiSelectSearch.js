@@ -15,20 +15,23 @@ class MultiSelectSearch extends React.Component {
   }
 
   onTagsChange = (event, values) => {
+    const startDate = (this.props.dateObjects && this.props.dateObjects.startDate) ? this.props.dateObjects.startDate : null;
+    const endDate = (this.props.dateObjects && this.props.dateObjects.endDate) ? this.props.dateObjects.endDate : null;
     this.setState(
       {
         tags: values
       },
-      () => {
-        // This will output an array of objects
-        // given by Autocompelte options property.
-        console.log(this.state.tags);
-      }
     );
-    this.props.getTradeDataByRSI({
-      startDate: this.props.startDate,
-      endDate: this.props.endDate
-    });
+    if (startDate && endDate) {
+      this.props.getTradeDataByRSI({
+        startDate: startDate,
+        endDate: endDate
+      });
+    }
+    else {
+      this.props.getTradeDataByRSI();
+    }
+
   };
 
   render() {
@@ -66,7 +69,7 @@ MultiSelectSearch.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  tradeDataRSI: state.tradeDataRSI,
+  dateObjects: state.tradeData.dateObjects,
   errors: state.errors
 });
 
