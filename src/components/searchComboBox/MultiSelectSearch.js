@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { connect } from "react-redux";
 import React from 'react'
 import PropTypes from 'prop-types';
-import { getTradeDataByRSI } from "../../actions/tradeDataActionsRsi";
+import {setActiveIndicators} from "../../actions/IndicatorAction"
 
 class MultiSelectSearch extends React.Component {
   constructor(props) {
@@ -15,22 +15,13 @@ class MultiSelectSearch extends React.Component {
   }
 
   onTagsChange = (event, values) => {
-    const startDate = (this.props.dateObjects && this.props.dateObjects.startDate) ? this.props.dateObjects.startDate : null;
-    const endDate = (this.props.dateObjects && this.props.dateObjects.endDate) ? this.props.dateObjects.endDate : null;
-    this.setState(
+        this.setState(
       {
         tags: values
       },
     );
-    if (startDate && endDate) {
-      this.props.getTradeDataByRSI({
-        startDate: startDate,
-        endDate: endDate
-      });
-    }
-    else {
-      this.props.getTradeDataByRSI();
-    }
+
+    this.props.setActiveIndicators(values);
 
   };
 
@@ -64,16 +55,12 @@ const top10Indicators = [
 ];
 
 MultiSelectSearch.propTypes = {
-  getTradeDataByRSI: PropTypes.func.isRequired,
+  setActiveIndicators: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  dateObjects: state.tradeData.dateObjects,
-  errors: state.errors
-});
 
 export default connect(
-  mapStateToProps,
-  { getTradeDataByRSI }
+  null,
+  { setActiveIndicators }
 )(MultiSelectSearch);

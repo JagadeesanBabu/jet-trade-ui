@@ -2,9 +2,7 @@
 import './ChartWrapper.css';
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getTradeData } from "../../actions/tradeDataActions";
 import { actionCreator } from "../../actions/actionCreator";
-import { getTradeDataByRSI } from "../../actions/tradeDataActionsRsi";
 import PropTypes from "prop-types";
 import { buildChart } from "../builders/builderChart";
 
@@ -25,9 +23,14 @@ class Chartwrapper extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (this.props.tradeData.activeIndicators !== prevProps.tradeData.activeIndicators) {
+            this.props.actionCreator(this.props.tradeData.dateRanges, this.props.tradeData.activeIndicators.activeIndicators);
+
+        }
+
         if (this.props.tradeData.dateRanges !== prevProps.tradeData.dateRanges) {
-        this.props.actionCreator(this.props.tradeData.dateRanges);
-    
+            this.props.actionCreator(this.props.tradeData.dateRanges, this.props.tradeData.activeIndicators.activeIndicators);
+
         }
     }
 

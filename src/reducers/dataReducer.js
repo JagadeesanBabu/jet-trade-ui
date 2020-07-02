@@ -1,10 +1,11 @@
-import { GET_INCOMING_DATA_SUCCESS, GET_INCOMING_DATA_SUCCESS_RSI, SET_DATE_RANGE_SUCCESS } from "../actions/types";
+import { GET_INCOMING_DATA_SUCCESS, GET_INCOMING_DATA_SUCCESS_RSI, SET_DATE_RANGE_SUCCESS, SET_ACTIVE_INDICATORS } from "../actions/types";
 
 const initialState = {
   tradeData: [],
   tradeDataRSI:[],
   dateRanges: {},
-  dateObjects: {}
+  dateObjects: {},
+  activeIndicators:[],
 };
 
 export default function(state = initialState, action) {
@@ -28,6 +29,11 @@ export default function(state = initialState, action) {
           tradeDataRSI: action.payload,
           dateObjects: action.dateObjects
         };      
+      case SET_ACTIVE_INDICATORS:
+          return {
+            ...state,
+            activeIndicators: action.payload
+          };      
     default:
       return state;
   }

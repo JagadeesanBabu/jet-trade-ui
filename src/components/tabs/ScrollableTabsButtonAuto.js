@@ -7,13 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { connect } from "react-redux";
 import React, { Component } from 'react'
-import { getTradeData } from "../../actions/tradeDataActions";
-import { getTradeDataByRSI } from "../../actions/tradeDataActionsRsi";
 import DateRangeSelector from '../Datepicker/DateRangeSelector';
-import { startDateEndDate } from '../helpers/dateHelpers'
 import MultiSelectSearch from '../searchComboBox/MultiSelectSearch';
-
-
+import { setDateRange } from "../../actions/dateRangeActions";
+import { startDateEndDate } from '../helpers/dateHelpers';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -74,9 +71,9 @@ class ScrollableTabsButtonAuto extends Component {
   handleChange = (event, value) => {
     this.setState({
       value: value,
-      isDateRangeVisible: false
+      isDateRangeVisible: false,
+      activeTabSelected:value,
     });
-    console.log(`value is ${value}`);
     this.getTradeDataByInputDate(value);
   }
 
@@ -94,39 +91,36 @@ class ScrollableTabsButtonAuto extends Component {
     });
   }
 
+ setDateRangeToProps = (dateRange) => {
+    //Action to SetDate Range
+  this.props.setDateRange(dateRange.startDate, dateRange.endDate);
+ }
+
   getTradeDataByInputDate = (index) => {
     switch (index) {
       case 2:
-        this.props.getTradeData(startDateEndDate(5));
-        this.props.getTradeDataByRSI(startDateEndDate(5));
+        this.setDateRangeToProps(startDateEndDate(5));
         break;
       case 3:
-        this.props.getTradeData(startDateEndDate(7));
-        this.props.getTradeDataByRSI(startDateEndDate(7));
+        this.setDateRangeToProps(startDateEndDate(7));
         break;
       case 4:
-        this.props.getTradeData(startDateEndDate(10));
-       this.props.getTradeDataByRSI(startDateEndDate(10));
+        this.setDateRangeToProps(startDateEndDate(10));
         break;
       case 5:
-        this.props.getTradeData(startDateEndDate(30));
-        this.props.getTradeDataByRSI(startDateEndDate(30));
+        this.setDateRangeToProps(startDateEndDate(30));
         break;
       case 6:
-        this.props.getTradeData(startDateEndDate(90));
-        this.props.getTradeDataByRSI(startDateEndDate(90));
+        this.setDateRangeToProps(startDateEndDate(90));
         break;
       case 7:
-        this.props.getTradeData(startDateEndDate(180));
-        this.props.getTradeDataByRSI(startDateEndDate(180));
+        this.setDateRangeToProps(startDateEndDate(180));
         break;
       case 8:
-        this.props.getTradeData(startDateEndDate(365));
-        this.props.getTradeDataByRSI(startDateEndDate(365));
+        this.setDateRangeToProps(startDateEndDate(365));
         break;
       default:
-        this.props.getTradeData(startDateEndDate(5));
-        this.props.getTradeDataByRSI(startDateEndDate(5));
+        this.setDateRangeToProps(startDateEndDate(5));
     }
 
   }
@@ -171,18 +165,14 @@ class ScrollableTabsButtonAuto extends Component {
 }
 
 ScrollableTabsButtonAuto.propTypes = {
-  getTradeData: PropTypes.func.isRequired,
+  setDateRange: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  tradeData: state.tradeData,
-  errors: state.errors
-});
 
 export default connect(
-  mapStateToProps,
-  { getTradeData, getTradeDataByRSI }
+ null,
+    { setDateRange } 
 )(ScrollableTabsButtonAuto);
 
 

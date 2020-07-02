@@ -16,11 +16,7 @@ export const getTradeDataByRSI = (params) => async dispatch => {
     await axios.get(`${defaultUrl}byRelativeStrength?size=${defaultSize}`);
     dispatch({
         type: GET_INCOMING_DATA_SUCCESS_RSI,
-        payload: res.data,
-        dateObjects: {
-          startDate: start,
-          endDate: end
-        }
+        payload: res.data
       });
   } catch (err) {
     dispatch({

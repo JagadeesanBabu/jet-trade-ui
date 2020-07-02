@@ -1,6 +1,4 @@
-import axios from "axios";
 import { SET_DATE_RANGE_SUCCESS } from "./types";
-import { defaultUrl } from './config';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 

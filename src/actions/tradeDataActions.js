@@ -16,11 +16,7 @@ export const getTradeData = (params) => async dispatch => {
     await axios.get(`${defaultUrl}byBasic?size=${defaultSize}`);
     dispatch({
         type: GET_INCOMING_DATA_SUCCESS,
-        payload: res.data,
-        dateObjects: {
-          startDate: start,
-          endDate: end
-        }
+        payload: res.data
       });
   } catch (err) {
     dispatch({
