@@ -71,8 +71,7 @@ class ScrollableTabsButtonAuto extends Component {
   handleChange = (event, value) => {
     this.setState({
       value: value,
-      isDateRangeVisible: false,
-      activeTabSelected:value,
+      isDateRangeVisible: false
     });
     this.getTradeDataByInputDate(value);
   }
@@ -87,6 +86,7 @@ class ScrollableTabsButtonAuto extends Component {
   handleIndicatorChange = (event, value, isIndicatorVisisble) => {
     this.setState({
       value: value,
+      isDateRangeVisible: false,
       isIndicatorVisisble: isIndicatorVisisble
     });
   }
@@ -165,8 +165,7 @@ class ScrollableTabsButtonAuto extends Component {
 }
 
 ScrollableTabsButtonAuto.propTypes = {
-  setDateRange: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  setDateRange: PropTypes.func.isRequired
 };
 
 

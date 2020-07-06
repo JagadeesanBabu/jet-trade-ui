@@ -2,26 +2,22 @@ import React from 'react';
 import './App.css';
 import { Provider } from "react-redux";
 import store from './store';
-import Chartwrapper from './components/Chartwrapper/Chartwrapper';
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./components/layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ScrollableTabsButtonAuto from './components/tabs/ScrollableTabsButtonAuto';
+import ContentWrapper from './components/container/ContentWrapper';
 
 
 function App() {
   return (
     <Provider store={store}>
-    <Router>
-    <div className="App">
-    <Header />
-    
-    <Route component={ScrollableTabsButtonAuto} />
-    <Route component={Chartwrapper} />
-    </div>
-    </Router>
+      <div className="App">
+        <Header />
+        <ScrollableTabsButtonAuto />
+        <ContentWrapper/>
+      </div>
     </Provider>
   );
 }
 
-export default App ;
+export default App;

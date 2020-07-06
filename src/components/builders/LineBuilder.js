@@ -5,7 +5,10 @@ import { ResponsiveLine } from '@nivo/line'
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-const MyResponsiveLine = ({ data /* see data tab */} ) => {
+const MyResponsiveLine = ( {data /* see data tab */, settings=null }) => {
+    const xAxis = settings ? settings.xAxis : 'TradeDate';
+    const yAxis = settings ? settings.yAxis : 'ClosedPrice';
+
     return (<ResponsiveLine
         data={data}
         margin={{ top: 100, right: 150, bottom: 90, left: 80 }}
@@ -22,7 +25,7 @@ const MyResponsiveLine = ({ data /* see data tab */} ) => {
           tickSize: 5,
           tickPadding: 3,
           tickRotation: 90,
-          legend: 'trade date',
+          legend: xAxis,
           legendOffset: 80,
           legendPosition: 'middle'
       }}
@@ -31,7 +34,7 @@ const MyResponsiveLine = ({ data /* see data tab */} ) => {
           tickSize: 16,
           tickPadding: 3,
           tickRotation: 0,
-          legend: 'closed price',
+          legend: yAxis,
           legendOffset: -70,
           legendPosition: 'middle'
       }}

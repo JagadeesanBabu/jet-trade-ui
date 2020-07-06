@@ -8,3 +8,28 @@
   border-style: solid;
   
 }
+
+.chart-wrapper-flex {
+  height: 450px;
+  width: 2000px;
+  position: absolute;
+  text-align: center;
+  font-size: 1.3rem !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border: solid;
+  
+}
+
+
+
+  
+.chart-wrapper-new {
+  text-align: center;
+  height: 50vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border: solid;
+}

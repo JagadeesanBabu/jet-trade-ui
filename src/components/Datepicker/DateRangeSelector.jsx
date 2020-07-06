@@ -19,13 +19,13 @@ class DateRangeSelector extends Component {
   }
 
   handleDateChange = ({ startDate, endDate }) => {
-    this.setState({ 
-      startDate:startDate, 
-      endDate:endDate });
-
      if (startDate && endDate) {
       this.props.setDateRange(startDate,endDate);
      }
+     this.setState({
+       startDate: startDate,
+       endDate: endDate
+     });
   }
 
   handleFocusChange = focusedInput => this.setState({ focusedInput });

@@ -5,16 +5,36 @@ import * as _ from 'lodash';
  * @param {Array} data
  * @returns {Object} data-array and settings for building
  */
-export const dataToLineChart = (inputData) => {
+export const basicDataToLineChart = (inputData) => {
 
-  const lineDataElements =
+  let lineDataElements =
     [
       {
         "id": "BANKNIFTY_BASIC",
         "color": "hsl(255, 70%, 50%)",
         "data": [
         ]
-      },
+      }
+    ];
+
+  if (inputData) {
+    inputData.map(data => {
+      lineDataElements[0].data.push(
+        {
+          "x": data.tradeDate,
+          "y": data.closedPrice
+        }
+
+      )
+    });
+  }
+  return lineDataElements;
+}
+
+export const rsiDataToLineChart = (inputData) => {
+
+  let lineDataElements =
+    [
       {
         "id": "BANKNIFTY_RSI",
         "color": "hsl(230, 70%, 50%)",
@@ -23,27 +43,16 @@ export const dataToLineChart = (inputData) => {
       }
     ]
 
-
-  inputData.tradeData.map(data => {
-    lineDataElements[0].data.push(
-      {
-        "x": data.tradeDate,
-        "y": data.closedPrice
-      }
-
-    )
-  }
-  )
-  if (inputData.tradeDataRSI) {
-    inputData.tradeDataRSI.map(data => {
-      lineDataElements[1].data.push(
+  if (inputData) {
+    inputData.map(data => {
+      lineDataElements[0].data.push(
         {
           "x": data.tradeDate,
           "y": data.relativeIndex
         }
 
       )
-    })
+    });
   }
   return lineDataElements;
 }

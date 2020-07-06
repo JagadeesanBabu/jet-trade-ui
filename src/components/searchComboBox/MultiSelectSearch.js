@@ -55,8 +55,7 @@ const top10Indicators = [
 ];
 
 MultiSelectSearch.propTypes = {
-  setActiveIndicators: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  setActiveIndicators: PropTypes.func.isRequired
 };
 
 
