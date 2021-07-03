@@ -1,4 +1,12 @@
+
+JET Trade Charts:
+
+This project is plot and analyse the trend of the trade data indicators such as SMA, RSI, MACD....
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
 
 ## Available Scripts
 
